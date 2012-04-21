@@ -1,0 +1,1 @@
+require 'jquery-cookie-rails/rails'
