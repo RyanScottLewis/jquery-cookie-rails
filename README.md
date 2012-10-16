@@ -4,12 +4,10 @@ Adds [jquery-cookie](https://github.com/carhartl/jquery-cookie) to the Rails 3 a
 
 ## Installation
 
-In your Gemfile, add the following lines:
+In your Gemfile, add the following line:
 
 ```ruby
-gem :assets do
-  gem 'jquery-cookie-rails'
-end
+gem 'jquery-cookie-rails'
 ```
 
 Now run `bundle install`.
@@ -27,7 +25,7 @@ For Rails 3.1 and greater, the files will be added to the asset pipeline and ava
 Simply the following to `app/assets/javascripts/application.js` after jQuery:
 
     //= require jquery
-    //= require jquery.cookie`.
+    //= require jquery.cookie
 
 ## Props
 
