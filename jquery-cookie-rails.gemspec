@@ -1,25 +1,31 @@
 # -*- encoding: utf-8 -*-
-APP_NAME = File.basename(__FILE__, '.gemspec')
-
-require File.expand_path("../lib/#{APP_NAME}/rails/version", __FILE__)
-
 Gem::Specification.new do |s|
-  s.name        = APP_NAME
-  s.version     = JqueryCookie::Rails::VERSION
-  s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Ryan Scott Lewis"]
-  s.email       = ["c00lryguy@gmail.com"]
-  s.homepage    = "http://rubygems.org/gems/#{APP_NAME}"
-  s.summary     = "Use jquery-cookie with Rails 3"
-  s.description = "This gem provides jquery-cookie assets for your Rails 3 application."
-
+  
+  # Variables
+  s.name        = 'jquery-cookie-rails'
+  s.author      = 'Ryan Scott Lewis'
+  s.email       = 'ryan@rynet.us'
+  s.summary     = 'Use jquery-cookie with Rails 3'
+  s.description = 'This gem provides jquery-cookie assets for your Rails 3 application.'
+  s.license     = 'MIT'
+  
+  # Dependencies
+  s.add_dependency 'version',       '~> 1.0'
+  s.add_dependency 'railties',      '>= 3.2.0', '< 5.0'
+  s.add_dependency 'thor',          '~> 0.14'
+  s.add_dependency 'jquery-rails',  '~> 2.0'
+  s.add_development_dependency 'rake',         '~> 10.0'
+  s.add_development_dependency 'fancy_logger', '~> 0.1'
   s.required_rubygems_version = ">= 1.3.6"
-
-  s.add_dependency "railties",     ">= 3.2.0", "< 5.0"
-  s.add_dependency "thor",         "~> 0.14"
-  s.add_dependency "jquery-rails", "~> 2.0"
-
-  s.files        = `git ls-files`.split("\n")
-  s.executables  = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
-  s.require_path = 'lib'
+  
+  # Pragmatically set variables
+  s.homepage = "http://github.com/RyanScottLewis/#{s.name}"
+  s.version = Pathname.glob('VERSION*').first.read rescue '0.0.0'
+  s.require_paths = ['lib']
+  s.files = %w(Gemfile Gemfile.lock jquery-cookie-rails.gemspec LICENSE Rakefile README.md VERSION vendor/assets/javascripts/jquery.cookie.js)
+  s.files += Dir.glob('lib/*.rb')
+  s.files += Dir.glob('lib/generators/**/*.rb')
+  s.files += Dir.glob('lib/jquery-cookie-rails/**/*.rb')
+  s.files += Dir.glob('spec/**/*')
+  
 end
