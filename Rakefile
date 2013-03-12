@@ -50,9 +50,9 @@ task :update => :jquery_cookie do
   version            = latest_tag.gsub(/^v/, '')
   version_path       = $project_path.join('VERSION')
   
-  "git add ."
-  "git commit -m \"Version bump to #{version}\""
-  "git tag #{version}"
+  run_command "git add ."
+  run_command "git commit -m \"Version bump to #{version}\""
+  run_command "git tag #{version}"
 end
 
 require 'rubygems/package_task'
