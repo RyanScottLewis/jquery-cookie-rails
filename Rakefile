@@ -3,19 +3,9 @@ require 'pathname'
 
 $logger       = FancyLogger.new(STDOUT)
 $project_path = Pathname.new(__FILE__).dirname.expand_path
-$spec = eval( $project_path.join('jquery-cookie-rails.gemspec').read )
+$spec         = eval( $project_path.join('jquery-cookie-rails.gemspec').read )
 
 Rake::TaskManager.record_task_metadata = true
-
-def require_task(path)
-  begin
-    require path
-    
-    yield
-  rescue LoadError
-    puts '', "Could not load '#{path}'.", 'Try to `rake gem:spec` and `bundle install` and try again.', ''
-  end
-end
 
 def run_command(command)
   result = `#{command}`.chomp.strip
@@ -36,7 +26,6 @@ namespace :jquery_cookie do
   task :update do    
     jquery_cookie_path = $project_path.join('lib', 'jquery-cookie')
     latest_tag         = run_command("cd #{jquery_cookie_path} && git describe --abbrev=0 --tags")
-    version            = latest_tag.gsub(/^v/, '')
       
     run_command "cd #{jquery_cookie_path} && git checkout #{latest_tag}"
   end
@@ -45,7 +34,8 @@ namespace :jquery_cookie do
   task :vendor do
     jquery_cookie_path = $project_path.join('lib', 'jquery-cookie', 'jquery.cookie.js')
     vendor_path        = $project_path.join('vendor', 'assets', 'javascripts')
-      
+    vendor_path.mkpath
+    
     run_command "cp #{jquery_cookie_path} #{vendor_path}"
   end
 end
@@ -55,9 +45,13 @@ task :jquery_cookie => ['jquery_cookie:update', 'jquery_cookie:vendor']
 
 desc 'Update jquery-cookie, update jquery-cookie-rails version, tag on git'
 task :update => :jquery_cookie do
-  $project_path.join('VERSION').open('w+') { |file| file.puts(version) }
+  jquery_cookie_path = $project_path.join('lib', 'jquery-cookie')
+  latest_tag         = run_command("cd #{jquery_cookie_path} && git describe --abbrev=0 --tags")
+  version            = latest_tag.gsub(/^v/, '')
+  version_path       = $project_path.join('VERSION')
     
-  "git commit -am \"Version bump to #{version}\""
+  "git add ."
+  "git commit -m \"Version bump to #{version}\""
   "git tag #{version}"
 end
 
