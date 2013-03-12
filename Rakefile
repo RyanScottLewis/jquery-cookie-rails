@@ -1,0 +1,74 @@
+require 'fancy_logger'
+require 'pathname'
+
+$logger       = FancyLogger.new(STDOUT)
+$project_path = Pathname.new(__FILE__).dirname.expand_path
+$spec = eval( $project_path.join('jquery-cookie-rails.gemspec').read )
+
+Rake::TaskManager.record_task_metadata = true
+
+def require_task(path)
+  begin
+    require path
+    
+    yield
+  rescue LoadError
+    puts '', "Could not load '#{path}'.", 'Try to `rake gem:spec` and `bundle install` and try again.', ''
+  end
+end
+
+def run_command(command)
+  result = `#{command}`.chomp.strip
+  
+  message = if result.empty?
+    command
+  else
+    command + "\n" + result.lines.collect { |line| "  #{line}" }.join
+  end
+  
+  $logger.debug(message)
+  
+  result
+end
+
+namespace :jquery_cookie do
+  desc 'Update the `jquery-cookie` submodule'
+  task :update do    
+    jquery_cookie_path = $project_path.join('lib', 'jquery-cookie')
+    latest_tag         = run_command("cd #{jquery_cookie_path} && git describe --abbrev=0 --tags")
+    version            = latest_tag.gsub(/^v/, '')
+      
+    run_command "cd #{jquery_cookie_path} && git checkout #{latest_tag}"
+  end
+    
+  desc 'Copy the `jquery.cookie.js` file to the `vendor/assets/javascripts` folder'
+  task :vendor do
+    jquery_cookie_path = $project_path.join('lib', 'jquery-cookie', 'jquery.cookie.js')
+    vendor_path        = $project_path.join('vendor', 'assets', 'javascripts')
+      
+    run_command "cp #{jquery_cookie_path} #{vendor_path}"
+  end
+end
+
+desc 'Update jquery-cookie and copy `jquery.cookie.js` into vendor'
+task :jquery_cookie => ['jquery_cookie:update', 'jquery_cookie:vendor']
+
+desc 'Update jquery-cookie, update jquery-cookie-rails version, tag on git'
+task :update => :jquery_cookie do
+  $project_path.join('VERSION').open('w+') { |file| file.puts(version) }
+    
+  "git commit -am \"Version bump to #{version}\""
+  "git tag #{version}"
+end
+
+require 'rubygems/package_task'
+Gem::PackageTask.new($spec) do |t|
+  t.need_zip = false
+  t.need_tar = false
+end
+
+task :default do
+  Rake::application.options.show_tasks = :tasks  # this solves sidewaysmilk problem
+  Rake::application.options.show_task_pattern = //
+  Rake::application.display_tasks_and_comments
+end
