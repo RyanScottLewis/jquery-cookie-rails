@@ -1,0 +1,3 @@
+[submodule "lib/jquery-cookie"]
+	path = lib/jquery-cookie
+	url = git://github.com/carhartl/jquery-cookie.git
