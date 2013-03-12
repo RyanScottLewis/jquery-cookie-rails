@@ -14,8 +14,14 @@ Gem::Specification.new do |s|
   s.add_dependency 'railties',      '>= 3.2.0', '< 5.0'
   s.add_dependency 'thor',          '~> 0.14'
   s.add_dependency 'jquery-rails',  '~> 2.0'
+  s.add_development_dependency 'rails',        '~> 3.2'
+  s.add_development_dependency 'sqlite3',      '~> 1.3'
+  s.add_development_dependency 'uglifier',     '~> 1.3'
+  s.add_development_dependency 'sass',         '~> 3.2'
   s.add_development_dependency 'rake',         '~> 10.0'
   s.add_development_dependency 'fancy_logger', '~> 0.1'
+  s.add_development_dependency 'rspec-rails',  '~> 2.13'
+  s.add_development_dependency 'fuubar',       '~> 1.1'
   s.required_rubygems_version = ">= 1.3.6"
   
   # Pragmatically set variables
