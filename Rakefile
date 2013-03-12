@@ -49,7 +49,7 @@ task :update => :jquery_cookie do
   latest_tag         = run_command("cd #{jquery_cookie_path} && git describe --abbrev=0 --tags")
   version            = latest_tag.gsub(/^v/, '')
   version_path       = $project_path.join('VERSION')
-    
+  
   "git add ."
   "git commit -m \"Version bump to #{version}\""
   "git tag #{version}"
