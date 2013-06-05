@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'version',       '~> 1.0'
   s.add_dependency 'railties',      '>= 3.2.0', '< 5.0'
   s.add_dependency 'thor',          '~> 0.14'
-  s.add_dependency 'jquery-rails',  '~> 2.0'
+  s.add_dependency 'jquery-rails',  '>= 2.0', '< 4.0'
   s.add_development_dependency 'rails',        '~> 3.2'
   s.add_development_dependency 'sqlite3',      '~> 1.3'
   s.add_development_dependency 'uglifier',     '~> 1.3'
