@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/RyanScottLewis/#{s.name}"
   s.version = Pathname.glob('VERSION*').first.read rescue '0.0.0'
   s.require_paths = ['lib']
-  s.files = %w(Gemfile Gemfile.lock jquery-cookie-rails.gemspec LICENSE Rakefile README.md VERSION vendor/assets/javascripts/jquery.cookie.js)
+  s.files = %w(Gemfile jquery-cookie-rails.gemspec LICENSE Rakefile README.md VERSION vendor/assets/javascripts/jquery.cookie.js)
   s.files += Dir.glob('lib/*.rb')
   s.files += Dir.glob('lib/generators/**/*.rb')
   s.files += Dir.glob('lib/jquery-cookie-rails/**/*.rb')
