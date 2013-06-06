@@ -27,7 +27,6 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
   s.files = %w(Gemfile jquery-cookie-rails.gemspec LICENSE Rakefile README.md VERSION vendor/assets/javascripts/jquery.cookie.js)
   s.files += Dir.glob('lib/*.rb')
-  s.files += Dir.glob('lib/generators/**/*.rb')
   s.files += Dir.glob('lib/jquery-cookie-rails/**/*.rb')
   s.files += Dir.glob('spec/**/*')
 end
