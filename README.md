@@ -12,15 +12,9 @@ gem 'jquery-cookie-rails'
 
 Now run `bundle install`.
 
-### Rails 3.0
+### Rails 3.2 or greater
 
-This gem adds a single generator to Rails 3, `jquery-cookie:install`.
-
-Running the generator will copy over the assets to your assets to your public directory.
-
-### Rails 3.1 or greater
-
-For Rails 3.1 and greater, the files will be added to the asset pipeline and available for you to use.
+For Rails 3.2 and greater, the files will be added to the asset pipeline and available for you to use.
 
 Simply the following to `app/assets/javascripts/application.js` after jQuery:
 
