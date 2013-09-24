@@ -1,6 +1,13 @@
 require 'fancy_logger'
 require 'pathname'
 
+begin
+  require 'bundler/setup'
+  require 'bundler/gem_tasks'
+rescue LoadError
+  puts 'You must `gem install bundler` and `bundle install` to run rake tasks'
+end
+
 $logger       = FancyLogger.new(STDOUT)
 $project_path = Pathname.new(__FILE__).dirname.expand_path
 $spec         = eval( $project_path.join('jquery-cookie-rails.gemspec').read )
@@ -53,12 +60,6 @@ task :update => :jquery_cookie do
   run_command "git add ."
   run_command "git commit -m \"Version bump to #{version}\""
   run_command "git tag #{version}"
-end
-
-require 'rubygems/package_task'
-Gem::PackageTask.new($spec) do |t|
-  t.need_zip = false
-  t.need_tar = false
 end
 
 task :default do
