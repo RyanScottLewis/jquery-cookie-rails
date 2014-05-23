@@ -55,11 +55,17 @@ task :update => :jquery_cookie do
   jquery_cookie_path = $project_path.join('lib', 'jquery-cookie')
   latest_tag         = run_command("cd #{jquery_cookie_path} && git describe --abbrev=0 --tags")
   version            = latest_tag.gsub(/^v/, '')
-  version_path       = $project_path.join('VERSION')
 
+  # Save new gem version
+  version_path       = $project_path.join('VERSION')
+  version_gem        = "#{version}.0"
+
+  File.open(version_path, 'w') {|f| f.write(version_gem) }
+
+  # Commit
   run_command "git add ."
-  run_command "git commit -m \"Version bump to #{version}\""
-  run_command "git tag #{version}"
+  run_command "git commit -m \"Version bump to #{version_gem} (jquery-rails version #{version})\""
+  run_command "git tag #{version_gem}"
 end
 
 task :default do
