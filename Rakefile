@@ -32,6 +32,9 @@ namespace :jquery_cookie do
   desc 'Update the `jquery-cookie` submodule'
   task :update do
     jquery_cookie_path = $project_path.join('lib', 'jquery-cookie')
+
+    run_command("cd #{jquery_cookie_path} && git pull origin master")
+
     latest_tag         = run_command("cd #{jquery_cookie_path} && git describe --abbrev=0 --tags")
 
     run_command "cd #{jquery_cookie_path} && git checkout #{latest_tag}"
