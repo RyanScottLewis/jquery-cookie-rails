@@ -1,4 +1,3 @@
-require 'fancy_logger'
 require 'pathname'
 
 begin
@@ -8,9 +7,7 @@ rescue LoadError
   puts 'You must `gem install bundler` and `bundle install` to run rake tasks'
 end
 
-$logger       = FancyLogger.new(STDOUT)
 $project_path = Pathname.new(__FILE__).dirname.expand_path
-$spec         = eval( $project_path.join('jquery-cookie-rails.gemspec').read )
 
 Rake::TaskManager.record_task_metadata = true
 
@@ -22,8 +19,6 @@ def run_command(command)
   else
     command + "\n" + result.lines.collect { |line| "  #{line}" }.join
   end
-
-  $logger.debug(message)
 
   result
 end
