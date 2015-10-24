@@ -2,6 +2,14 @@
 
 Adds [jquery-cookie](https://github.com/carhartl/jquery-cookie) to the Rails 3 asset pipeline.
 
+###
+
+# NOTICE
+
+### No longer maintained. [jquery-cookie](https://github.com/carhartl/jquery-cookie) is now superseded by [js-cookie](https://github.com/js-cookie/js-cookie) which can be added to your Rails pipeline with [js_cookie_rails](https://github.com/freego/js_cookie_rails).
+
+###
+
 ## Installation
 
 In your Gemfile, add the following line:
